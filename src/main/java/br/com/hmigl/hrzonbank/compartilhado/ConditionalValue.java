@@ -8,11 +8,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = IdExistsValidator.class)
+@Constraint(validatedBy = ConditionalValueValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface IdExists {
-    String message() default "This {fieldName} does not exist";
+public @interface ConditionalValue {
+    String message() default "";
 
     Class<?>[] groups() default {};
 
@@ -21,4 +21,6 @@ public @interface IdExists {
     String fieldName() default "";
 
     Class<?> domainClass() default Object.class;
+
+    ValidationCondition condition();
 }
