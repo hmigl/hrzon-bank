@@ -1,5 +1,7 @@
 package br.com.hmigl.hrzonbank.pessoa;
 
+import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("pessoas")
 public class PessoaController {
     @PostMapping
-    ResponseEntity<String> cria(@RequestBody NovaPessoaRequest request) {
+    ResponseEntity<String> cadastra(@RequestBody @Valid NovaPessoaRequest request) {
         return ResponseEntity.ok("okay");
     }
 }
