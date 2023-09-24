@@ -30,7 +30,8 @@ public class Transferencia {
     @JoinColumn(name = "conta_destino_id")
     private Conta contaDestino;
 
-    private @NotNull @Positive @Digits(integer = Integer.MAX_VALUE, fraction = 2) BigDecimal valor;
+    private @NotNull @Positive @Digits(integer = 13, fraction = 2) BigDecimal valor =
+            BigDecimal.ZERO;
     private @NotNull @PastOrPresent LocalDate data;
 
     @Deprecated
@@ -43,7 +44,7 @@ public class Transferencia {
         this.data = LocalDate.now();
     }
 
-    public void transfere() {
+    public void processa() {
         Assert.state(
                 Objects.nonNull(this.contaOrigem),
                 "Nao e possivel usar uma conta inexistente para realizar transferencia");
@@ -53,7 +54,7 @@ public class Transferencia {
         Assert.state(
                 Objects.nonNull(this.valor) && this.valor.compareTo(BigDecimal.ZERO) > 0,
                 "Valor selecionado deve ser maior que 0");
-        this.contaOrigem.transfere(this.contaDestino, this.valor);
+        this.contaOrigem.transferePara(this.contaDestino, this.valor);
     }
 
     public Long getId() {

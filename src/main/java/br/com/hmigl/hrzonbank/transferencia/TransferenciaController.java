@@ -3,6 +3,7 @@ package br.com.hmigl.hrzonbank.transferencia;
 import br.com.hmigl.hrzonbank.conta.Conta;
 
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -33,9 +34,11 @@ public class TransferenciaController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> processa(@RequestBody @Valid NovaTransferenciaRequest request) {
         Transferencia transferencia = request.toModel(id -> manager.find(Conta.class, id));
-        transferencia.transfere();
+        transferencia.processa();
+        manager.persist(transferencia);
         URI uri =
                 UriComponentsBuilder.fromPath("transferencias/{id}")
                         .buildAndExpand(transferencia.getId())

@@ -5,5 +5,4 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-public record TransacaoRequest(
-        @Positive @Digits(integer = Integer.MAX_VALUE, fraction = 2) BigDecimal quantia) {}
+public record TransacaoRequest(@Positive @Digits(integer = 13, fraction = 2) BigDecimal quantia) {}

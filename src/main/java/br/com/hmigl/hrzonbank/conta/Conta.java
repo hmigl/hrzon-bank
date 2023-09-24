@@ -56,7 +56,7 @@ public class Conta {
         return this.saldo.compareTo(valor) >= 0;
     }
 
-    public void transfere(Conta contaDestino, BigDecimal valor) {
+    public void transferePara(Conta contaDestino, BigDecimal valor) {
         Assert.isTrue(
                 !Objects.equals(this, contaDestino),
                 "Nao e possivel transferir para a mesma conta");
