@@ -42,4 +42,8 @@ public class Conta {
     public Long getId() {
         return id;
     }
+
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
 }
