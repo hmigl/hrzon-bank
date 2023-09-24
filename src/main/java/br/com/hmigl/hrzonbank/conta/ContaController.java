@@ -29,14 +29,14 @@ public class ContaController {
 
     private EntityManager manager;
 
-    private MaximoUmaContaDeCadaTipoValidator validator;
+    private final MaximoUmaContaDeCadaTipoValidator validator;
 
     public ContaController(EntityManager manager, MaximoUmaContaDeCadaTipoValidator validator) {
         this.manager = manager;
         this.validator = validator;
     }
 
-    @InitBinder
+    @InitBinder("novaContaRequest")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(validator);
     }
@@ -56,6 +56,18 @@ public class ContaController {
         Conta conta =
                 Optional.ofNullable(manager.find(Conta.class, id))
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(Map.of("saldo", conta.getSaldo()));
+    }
+
+    @PostMapping("/{id}/deposito")
+    @Transactional
+    public ResponseEntity<?> deposita(
+            @PathVariable Long id, @RequestBody @Valid TransacaoRequest request) {
+        Conta conta =
+                Optional.ofNullable(manager.find(Conta.class, id))
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        conta.aumentaSaldo(request.quantia());
+        manager.persist(conta);
         return ResponseEntity.ok(Map.of("saldo", conta.getSaldo()));
     }
 }

@@ -39,6 +39,10 @@ public class Conta {
         this.tipoConta = tipoConta;
     }
 
+    public void aumentaSaldo(BigDecimal quantia) {
+        this.saldo = this.saldo.add(quantia);
+    }
+
     public Long getId() {
         return id;
     }
