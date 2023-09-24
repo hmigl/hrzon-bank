@@ -70,4 +70,16 @@ public class ContaController {
         manager.persist(conta);
         return ResponseEntity.ok(Map.of("saldo", conta.getSaldo()));
     }
+
+    @PostMapping("/{id}/saque")
+    @Transactional
+    public ResponseEntity<?> saca(
+            @PathVariable Long id, @RequestBody @Valid TransacaoRequest request) {
+        Conta conta =
+                Optional.ofNullable(manager.find(Conta.class, id))
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        conta.diminuiSaldo(request.quantia());
+        manager.persist(conta);
+        return ResponseEntity.ok(Map.of("saldo", conta.getSaldo()));
+    }
 }

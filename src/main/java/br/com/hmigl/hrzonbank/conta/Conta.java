@@ -43,6 +43,12 @@ public class Conta {
         this.saldo = this.saldo.add(quantia);
     }
 
+    public void diminuiSaldo(BigDecimal quantia) {
+        if (this.saldo.compareTo(quantia) >= 0) {
+            this.saldo = this.saldo.subtract(quantia);
+        }
+    }
+
     public Long getId() {
         return id;
     }
