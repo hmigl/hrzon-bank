@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,16 @@ public class ContaController {
 
     private EntityManager manager;
 
-    public ContaController(EntityManager manager) {
+    private MaximoUmaContaDeCadaTipoValidator validator;
+
+    public ContaController(EntityManager manager, MaximoUmaContaDeCadaTipoValidator validator) {
         this.manager = manager;
+        this.validator = validator;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(validator);
     }
 
     @PostMapping
