@@ -17,7 +17,7 @@ public class MaximoUmaContaDeCadaTipoValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return clazz.isAssignableFrom(NovaContaRequest.class);
+        return NovaContaRequest.class.isAssignableFrom(clazz);
     }
 
     @Override
