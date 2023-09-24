@@ -10,10 +10,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
+import java.util.function.Function;
 
 public record NovaTransferenciaRequest(
         @NotNull @ConditionalValue(domainClass = Conta.class, fieldName = "id", condition = EXISTS)
                 Long contaOrigemId,
         @NotNull @ConditionalValue(domainClass = Conta.class, fieldName = "id", condition = EXISTS)
                 Long contaDestinoId,
-        @NotNull @Positive @Digits(integer = Integer.MAX_VALUE, fraction = 2) BigDecimal valor) {}
+        @NotNull @Positive @Digits(integer = Integer.MAX_VALUE, fraction = 2) BigDecimal valor) {
+    public Transferencia toModel(Function<Long, Conta> carregaConta) {
+        return new Transferencia(
+                carregaConta.apply(contaOrigemId), carregaConta.apply(contaDestinoId), valor);
+    }
+}

@@ -14,7 +14,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import org.springframework.util.Assert;
+
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 public class Conta {
@@ -53,11 +56,40 @@ public class Conta {
         return this.saldo.compareTo(valor) >= 0;
     }
 
+    public void transfere(Conta contaDestino, BigDecimal valor) {
+        Assert.isTrue(
+                !Objects.equals(this, contaDestino),
+                "Nao e possivel transferir para a mesma conta");
+
+        this.diminuiSaldo(valor);
+        contaDestino.aumentaSaldo(valor);
+
+        Assert.state(
+                this.saldo.compareTo(BigDecimal.ZERO) > 0,
+                "Ocorreu algum problema com o saldo da conta");
+    }
+
     public Long getId() {
         return id;
     }
 
     public BigDecimal getSaldo() {
         return saldo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Conta conta = (Conta) o;
+        return Objects.equals(pessoa, conta.pessoa)
+                && Objects.equals(numero, conta.numero)
+                && Objects.equals(digito, conta.digito)
+                && tipoConta == conta.tipoConta;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pessoa, numero, digito, tipoConta);
     }
 }
