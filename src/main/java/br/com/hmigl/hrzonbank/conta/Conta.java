@@ -44,9 +44,13 @@ public class Conta {
     }
 
     public void diminuiSaldo(BigDecimal quantia) {
-        if (this.saldo.compareTo(quantia) >= 0) {
+        if (this.possuiSaldoSuficiente(quantia)) {
             this.saldo = this.saldo.subtract(quantia);
         }
+    }
+
+    public boolean possuiSaldoSuficiente(BigDecimal valor) {
+        return this.saldo.compareTo(valor) >= 0;
     }
 
     public Long getId() {
