@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres:14-alpine
+    container_name: database
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_DATABASE}"
+    restart: on-failure
+
+  webapp:
+    build: ./
+    container_name: webapp
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      DB_USERNAME: "${DB_USERNAME}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_HOSTNAME: "${DB_HOSTNAME}"
+      DB_PORT:     "${DB_PORT}"
+      DB_DATABASE: "${DB_DATABASE}"
