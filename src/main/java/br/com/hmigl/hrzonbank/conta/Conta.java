@@ -65,7 +65,7 @@ public class Conta {
         contaDestino.aumentaSaldo(valor);
 
         Assert.state(
-                this.saldo.compareTo(BigDecimal.ZERO) > 0,
+                this.saldo.compareTo(BigDecimal.ZERO) >= 0,
                 "Ocorreu algum problema com o saldo da conta");
     }
 

@@ -1,6 +1,7 @@
 package br.com.hmigl.hrzonbank.conta;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import br.com.hmigl.hrzonbank.pessoa.Pessoa;
 
@@ -32,5 +33,31 @@ class ContaTest {
         ReflectionTestUtils.setField(conta, "saldo", quantiaInical);
         conta.diminuiSaldo(subtraendo);
         assertEquals(0, conta.getSaldo().compareTo(quantiaFinal));
+    }
+
+    @DisplayName("Deve transferir de uma conta para a outra")
+    @ParameterizedTest
+    @CsvSource({
+        "50.00,10.50,0,10.50,39.5",
+        "1.42,1.42,100,101.42,0",
+        "619.21,561.42,50,611.42,57.79"
+    })
+    void test3(
+            BigDecimal saldoConta1,
+            BigDecimal valor,
+            BigDecimal saldoConta2,
+            BigDecimal novoSaldoConta2,
+            BigDecimal novoSaldoConta1) {
+
+        Conta conta = new Conta(Mockito.mock(Pessoa.class), "641841", "5", TipoConta.POUPANCA);
+        ReflectionTestUtils.setField(conta, "saldo", saldoConta1);
+
+        Conta conta2 = new Conta(Mockito.mock(Pessoa.class), "616151", "3", TipoConta.CORRENTE);
+        ReflectionTestUtils.setField(conta2, "saldo", saldoConta2);
+
+        conta.transferePara(conta2, valor);
+
+        assertTrue(novoSaldoConta1.compareTo(conta.getSaldo()) == 0);
+        assertTrue(novoSaldoConta2.compareTo(conta2.getSaldo()) == 0);
     }
 }
