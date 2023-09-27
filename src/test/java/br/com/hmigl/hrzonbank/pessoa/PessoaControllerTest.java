@@ -24,9 +24,9 @@ class PessoaControllerTest {
     @DisplayName("Deve cadastrar uma nova pessoa e falhar ao cadastra-la novamente")
     @ParameterizedTest
     @CsvSource({
-        "fulano,94996457774,96638826700",
-        "ciclano,48999383663,27420927146",
-        "beltrano,47987271162,85686996180"
+        "fulano,33731142767,96638826700",
+        "ciclano,17369361403,27420927146",
+        "beltrano,94735443916,85686996180"
     })
     void test(String nome, String telefone, String cpf) throws Exception {
         mockMvc.post(URI, Map.of("nome", nome, "telefone", telefone, "cpf", cpf))

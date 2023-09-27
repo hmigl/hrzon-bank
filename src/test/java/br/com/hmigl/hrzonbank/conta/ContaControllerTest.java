@@ -29,7 +29,7 @@ class ContaControllerTest {
     void test(Long pessoaId, String numero, String digito, TipoConta tipoConta) throws Exception {
         mockMvc.post(
                 "/pessoas",
-                Map.of("nome", "fulano", "telefone", "94996457774", "cpf", "96638826700"));
+                Map.of("nome", "fulano", "telefone", "94996457774", "cpf", "20487101154"));
 
         mockMvc.post(
                         URI,
@@ -52,7 +52,7 @@ class ContaControllerTest {
             throws Exception {
         mockMvc.post(
                 "/pessoas",
-                Map.of("nome", "fulano", "telefone", "94996457774", "cpf", "96638826700"));
+                Map.of("nome", "fulano", "telefone", "94996457774", "cpf", "77040052601"));
 
         mockMvc.post(
                         URI,
