@@ -25,3 +25,4 @@ services:
       DB_HOSTNAME: "${DB_HOSTNAME}"
       DB_PORT:     "${DB_PORT}"
       DB_DATABASE: "${DB_DATABASE}"
+    restart: on-failure

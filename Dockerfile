@@ -7,8 +7,7 @@ COPY pom.xml ./
 
 COPY src ./src
 
-# TODO: fix tests and remove 'skipTests' option
-RUN mvn -DskipTests=true package
+RUN mvn package
 
 # lightweight base image just for running the application
 FROM eclipse-temurin:17-jdk-alpine
