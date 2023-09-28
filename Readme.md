@@ -12,7 +12,7 @@
 
 ## Visão geral
 
-`hrzon-bank` simula uma estrutura de banco. É possível criar clientes, assosciar contas e realizar transferências.
+`hrzon-bank` simula uma estrutura de banco. É possível criar clientes, associar contas e realizar transferências.
 
 Este projeto foi construído com:
 
