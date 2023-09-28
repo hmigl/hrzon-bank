@@ -51,13 +51,13 @@ Operações em '/pessoas'
 
 | Resource | POST                    |
 |----------|-------------------------|
-| /pessoas | Regista uma nova pessoa |
+| /pessoas | Registra uma nova pessoa |
 
 Operações em '/contas'
 
 | Resource              | POST                                   | GET                            |
 |-----------------------|----------------------------------------|--------------------------------|
-| /contas               | Regista uma nova conta                 | -                              |
+| /contas               | Registra uma nova conta                 | -                              |
 | /contas/{id}/deposito | Faz um novo depósito para a conta {id} | -                              |
 | /contas/{id}/saque    | Faz um saque para a conta {id}         | -                              |
 | /contas/{id}/saldo    | -                                      | Consulta o saldo da conta {id} |
@@ -66,4 +66,4 @@ Operações em '/transferencias'
 
 | Resource        | POST                                         |
 |-----------------|----------------------------------------------|
-| /transferencias | Processa uma nova transferencia entre contas |
+| /transferencias | Processa uma nova transferência entre contas |
